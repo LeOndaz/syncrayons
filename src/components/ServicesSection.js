@@ -26,27 +26,30 @@ const ServicesSection = () => {
   }
 
   const sliderRef = useRef(null);
-  const ref = useRef(null);
+  const sectionRef = useRef(null);
   // const { scrollYProgress } = useScroll();
 
   useEffect(() => {
-    const element = ref.current;
+    const element = sectionRef.current;
 
-    if (element && sliderRef.current) {
-      const intersectionObserver = new IntersectionObserver((e) => {
-        console.log(e);
-        sliderRef.current.slickNext();
-      }, { threshold: 0.1 })
+    if (element && sliderRef) {
+      const onWheel = (e) => {
 
-      intersectionObserver.observe(element);
+        if (e.deltaY > 0) {
+          sliderRef.current.slickNext();
+        } else {
+          sliderRef.current.slickPrev();
+        }
+      }
+      sectionRef.current.addEventListener('wheel', onWheel);
 
       return () => {
-        intersectionObserver.unobserve(element);
+        element.removeEventListener('wheel', onWheel);
       }
     }
-  }, [sliderRef, ref])
+  }, [sliderRef, sectionRef])
 
-  return <Box sx={{
+  return <Box ref={sectionRef} sx={{
     position: "relative",
     background: "#F2F4F8 0% 0% no-repeat padding-box;",
     borderTopLeftRadius: 70,
@@ -62,7 +65,7 @@ const ServicesSection = () => {
 
     <Divider sx={{marginTop: 5, marginBottom: 5}}/>
 
-    <Box ref={ref}>
+    <Box>
       <Slider {...sliderSettings} ref={sliderRef}>
         {cards.map(({image, title}, i) => (
           <Card key={i} sx={{mr: 1, background: "transparent"}}>

@@ -11,7 +11,7 @@ import MapSection from "./components/MapSection";
 
 function App() {
   return <ThemeProvider theme={theme}>
-    <Box sx={{ backgroundColor: "primary.main"}}>
+    <Box sx={{ backgroundColor: "primary.main", fontSize: 16}}>
       <Header/>
       <ValueToRelations/>
       <ServicesSection/>
