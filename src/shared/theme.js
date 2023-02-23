@@ -10,7 +10,7 @@ export const theme = createTheme({
       main: "#FECC00"
     },
   },
-  shadows: "none",
+  shadows: Array(25).fill(null),
   typography: {
     fontFamily: "Poppins, sans-serif",
   },
