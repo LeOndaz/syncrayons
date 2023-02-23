@@ -1,7 +1,7 @@
-import {Box, Card, CardContent, Divider, Grid, Typography} from "@mui/material";
+import {Box, Card, CardContent, Divider, Typography} from "@mui/material";
 import Slider from "react-slick";
 import {useEffect, useRef} from "react";
-import { motion, useScroll } from "framer-motion"
+// import { motion, useScroll } from "framer-motion"
 
 
 const ServicesSection = () => {
@@ -27,7 +27,7 @@ const ServicesSection = () => {
 
   const sliderRef = useRef(null);
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll();
+  // const { scrollYProgress } = useScroll();
 
   useEffect(() => {
     const element = ref.current;

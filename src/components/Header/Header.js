@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppBar, Box, Container, IconButton, Link, SvgIcon, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, IconButton, Link, Toolbar, Typography} from "@mui/material";
 import Logo from "./Logo";
 import NavButton from "./NavButton";
 

@@ -1,20 +1,5 @@
-import {Box, Card, CardContent, Grid, IconButton, Typography} from "@mui/material";
+import {Box, Grid, Typography} from "@mui/material";
 import Slider from "react-slick";
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-
-const NextArrow = ({className, style, onClick}) => {
-  return (
-    <div
-      style={{...style}}
-      onClick={onClick}
-      className={className}
-    >
-      <IconButton>
-        <ArrowCircleRightIcon/>
-      </IconButton>
-    </div>
-  );
-}
 
 const MapSection = () => {
   const sliderSettings = {
