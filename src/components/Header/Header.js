@@ -5,36 +5,25 @@ import NavButton from "./NavButton";
 
 
 const Header = () => {
-  const navItems = [
-    {
-      label: "Chi Samo",
-    },
-    {
-      label: "Servizi",
-    },
-    {
-      label: "Partnership"
-    },
-    {
-      label: "Contati",
-    },
-    {
-      label: "Blog"
-    }
-  ]
+  const navItems = [{
+    label: "Chi Samo",
+  }, {
+    label: "Servizi",
+  }, {
+    label: "Partnership"
+  }, {
+    label: "Contati",
+  }, {
+    label: "Blog"
+  }]
 
   return <AppBar position="static"
                  sx={{
-                   p: 0,
-                   background: "white",
-                   minHeight: 600,
+                   p: 0, background: "white", minHeight: 600,
                  }}>
     <Toolbar sx={(theme) => ({
       [theme.breakpoints.up('sm')]: {
-        pl: 0,
-        pr: 0,
-        pt: 2,
-        pb: 2,
+        pl: 0, pr: 0, pt: 2, pb: 2,
       },
     })}>
       <IconButton sx={{padding: 0}}>
@@ -44,20 +33,13 @@ const Header = () => {
 
       <Box sx={{display: "flex", justifyContent: "space-between", alignItems: "center", width: "100%"}}>
         <Box sx={{display: "flex"}}>
-          {navItems.map(({label}, i) => (
-              <Link key={i} href={"/"} underline="none">
-                <Typography sx={{
-                  textTransform: "uppercase",
-                  fontWeight: "700",
-                  fontSize: 14,
-                  pl: 3,
-                  pr: 3,
-                }}>
-                  {label}
-                </Typography>
-              </Link>
-            )
-          )}
+          {navItems.map(({label}, i) => (<Link key={i} href={"/"} underline="none">
+            <Typography sx={{
+              textTransform: "uppercase", fontWeight: "700", fontSize: 14, pl: 3, pr: 3,
+            }}>
+              {label}
+            </Typography>
+          </Link>))}
         </Box>
         <Box sx={{display: "flex", justifyContent: "space-between"}}>
           <Typography fontSize={12} fontWeight={300}>Via dell'drogeno 9/4, Marghera (VE)</Typography>
@@ -83,11 +65,44 @@ const Header = () => {
     {/*  </Typography>*/}
     {/*</Box>*/}
 
-    <Box>
-      <video autoPlay loop controls={false} src={require("./../../assets/header-video.mp4")} style={{
+    <Box sx={{position: "relative", width: "100vw"}}>
+      <video
+        autoPlay
+        loop
+        muted
+        controls={false}
+        src={require("./../../assets/header-video.mp4")}
+        style={{width: "100vw", maxHeight: 600, objectFit: "cover"}}
+      />
+
+      <Typography fontWeight={700} fontSize={"calc(45rem)"} sx={(theme) => ({
         width: "100vw",
-      }}/>
+        textAlign: "center",
+        // [theme.breakpoints.up('xl')]: {
+        //   fontSize: 900,
+        // },
+        // [theme.breakpoints.up('md')]: {
+        //   fontSize: "min(700px, 40rem)",
+        // },
+        // [theme.breakpoints.up('sm')]: {
+        //   fontSize: 200
+        // },
+        position: "absolute",
+        top: 0,
+        height: "100%",
+        lineHeight: 0.7,
+        backgroundColor: "#fff",
+        color: "#000",
+        mixBlendMode: "lighten",
+        userSelect: "none",
+      })}>
+        SDC
+      </Typography>
     </Box>
+
+    {/*<video autoPlay loop controls={false} src={require("./../../assets/header-video.mp4")} style={{*/}
+    {/*  width: "100vw",*/}
+    {/*}}/>*/}
 
     <Box sx={{ml: 18, pt: 10, pb: 15}}>
       <Typography fontSize={65} fontWeight={400}>Il tuo partner per</Typography>

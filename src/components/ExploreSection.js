@@ -85,7 +85,7 @@ const ExploreSection = () => {
             </Box>
           </Box>)
 
-          return <Grid item xs={12}>
+          return <Grid key={i} item xs={12}>
             <Box sx={{display: "flex", alignItems: "center", justifyContent: "center"}}>
               {item.imageOnLeft ? <>{card}{text}</> : <>{text}{card}</>}
             </Box>

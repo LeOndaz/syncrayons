@@ -65,7 +65,7 @@ const ServicesSection = () => {
     <Box ref={ref}>
       <Slider {...sliderSettings} ref={sliderRef}>
         {cards.map(({image, title}, i) => (
-          <Card sx={{mr: 1, background: "transparent"}}>
+          <Card key={i} sx={{mr: 1, background: "transparent"}}>
             <Typography fontWeight={300} fontSize={14} height={30}>{title}</Typography>
 
             <CardContent sx={{p: 0, mt: 2}}>
