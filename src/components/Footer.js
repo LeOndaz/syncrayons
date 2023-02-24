@@ -27,7 +27,7 @@ const Footer = () => {
       </Grid>
 
       <Grid item xs={12} md={6} lg={3}>
-        <img src={require("./../assets/Raggruppa 44.png")} style={{ maxWidth: 200}}/>
+        <img alt="some random thing" src={require("./../assets/Raggruppa 44.png")} style={{ maxWidth: 200}}/>
       </Grid>
 
     </Grid>

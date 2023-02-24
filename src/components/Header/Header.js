@@ -6,14 +6,11 @@ import {
   Drawer,
   IconButton,
   Link,
-  Menu,
-  MenuItem,
   Toolbar,
-  Typography, useMediaQuery,
-  useTheme
+  Typography,
 } from "@mui/material";
 import Logo from "./Logo";
-import NavButton from "./NavButton";
+import NavIcon from "./NavIcon";
 
 
 const Header = () => {
@@ -42,13 +39,19 @@ const Header = () => {
 
   const [showMenu, setShowMenu] = useState(false);
   const anchor = useRef(null);
-  const theme = useTheme();
-  const matches = useMediaQuery(theme.breakpoints.down('md'));
 
-  const handleShowMenu = () => {
-    setShowMenu(true);
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
   }
 
+  const menuButton = (
+    <IconButton
+      sx={{padding: 0}}
+      ref={anchor}
+      onClick={toggleMenu}>
+      <NavIcon/>
+    </IconButton>
+  )
   return <AppBar position="static"
                  sx={{
                    p: 0, background: "white", minHeight: 600,
@@ -68,9 +71,10 @@ const Header = () => {
           open={showMenu}
           onClose={() => setShowMenu(false)}
           sx={{
-            display: {xs: 'block', md: 'none'},
+            height: "100vw",
           }}
         >
+          {menuButton}
           {navItems.map((item, i) => (
             <Button>
               <Link underline="none" href={item.href} onClick={() => setShowMenu(false)} key={i}>
@@ -81,12 +85,7 @@ const Header = () => {
         </Drawer>
       </Box>
 
-      <IconButton
-        sx={{padding: 0}}
-        ref={anchor}
-        onClick={matches ? handleShowMenu : null}>
-        <NavButton/>
-      </IconButton>
+      {menuButton}
       <Logo style={{margin: "0 60px"}}/>
 
       <Box sx={(theme) => ({
@@ -138,17 +137,17 @@ const Header = () => {
         p: 0,
         m: 0,
         [theme.breakpoints.up('lg')]: {
-        fontSize: "calc(35rem)",
-      },
+          fontSize: "calc(35rem)",
+        },
         [theme.breakpoints.down('lg')]: {
-        fontSize: "15rem"
-      },
+          fontSize: "15rem"
+        },
         [theme.breakpoints.down('md')]: {
-        fontSize: "15rem",
-      },
+          fontSize: "15rem",
+        },
         [theme.breakpoints.down('sm')]: {
-        fontSize: "10rem"
-      },
+          fontSize: "10rem"
+        },
         position: "absolute",
         top: 0,
         height: "100%",

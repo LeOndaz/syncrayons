@@ -1,5 +1,5 @@
 
-const NavButton = () => {
+const NavIcon = () => {
   return <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 68 68">
     <g id="Raggruppa_43" data-name="Raggruppa 43" transform="translate(0 -39)">
       <g id="Raggruppa_7" data-name="Raggruppa 7">
@@ -18,4 +18,4 @@ const NavButton = () => {
   </svg>
 }
 
-export default NavButton;
+export default NavIcon;
