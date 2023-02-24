@@ -1,4 +1,5 @@
 import {Box, Card, CardContent, Grid, Typography} from "@mui/material";
+import SDC from "./SDC";
 
 
 const ExploreSection = () => {
@@ -26,6 +27,7 @@ const ExploreSection = () => {
     },
 
   ]
+
   return <Box sx={{
     pl: 18,
     pr: 18,
@@ -43,22 +45,16 @@ const ExploreSection = () => {
       Esperienza e la flessibilità nel proporre nuovi servizi connessi al commercio internazionale
     </Typography>
 
-    <Box sx={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center"}}>
-      <Typography
-        fontWeight={500}
-        fontSize={400}
-        sx={{
-          transform: "rotateZ(90deg) scaleX(1.5)",
-          position: "absolute",
-          zIndex: 0,
-          opacity: 0.05,
-          letterSpacing: -40,
-          userSelect: "none",
-        }} paragraph>
-        SDC
-      </Typography>
+    <Box sx={{position: "relative", display: "flex", alignItems: "center", justifyContent: "center"}}>
+      <SDC style={{
+        transform: "rotateZ(90deg)",
+        position: "absolute",
+        maxHeight: 200,
+        opacity: 0.05,
+        userSelect: "none",
+      }}/>
 
-      <Grid container sx={{ zIndex: 1}}>
+      <Grid container sx={{zIndex: 1}}>
         {explorations.map((item, i) => {
           const card = (<Card sx={{background: "transparent", mr: 10}}>
             <CardContent sx={{p: 0}}>

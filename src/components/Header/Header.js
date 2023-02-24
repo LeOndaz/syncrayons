@@ -11,7 +11,9 @@ import {
 } from "@mui/material";
 import Logo from "./Logo";
 import NavIcon from "./NavIcon";
-
+import CloseIcon from '@mui/icons-material/Close';
+import SDC from "../SDC";
+import {motion} from 'framer-motion';
 
 const Header = () => {
   const navItems = [
@@ -52,10 +54,26 @@ const Header = () => {
       <NavIcon/>
     </IconButton>
   )
-  return <AppBar position="static"
-                 sx={{
-                   p: 0, background: "white", minHeight: 600,
-                 }}>
+
+  const cancelMenuButton = (<IconButton
+      sx={(theme) => ({
+        padding: 0,
+        backgroundColor: theme.palette.primary.main,
+        borderRadius: 0,
+        color: theme.palette.secondary.main,
+        p: 1
+      })}
+      ref={anchor}
+      onClick={toggleMenu}
+    >
+      <CloseIcon/>
+    </IconButton>
+  )
+  return <AppBar
+    position="static"
+    sx={{
+      p: 0, background: "white", minHeight: 600,
+    }}>
     <Toolbar sx={(theme) => ({
       [theme.breakpoints.up('sm')]: {
         pl: 0, pr: 0, pt: 2, pb: 2,
@@ -71,17 +89,72 @@ const Header = () => {
           open={showMenu}
           onClose={() => setShowMenu(false)}
           sx={{
-            height: "100vw",
+            height: "100vh",
           }}
         >
-          {menuButton}
-          {navItems.map((item, i) => (
-            <Button>
-              <Link underline="none" href={item.href} onClick={() => setShowMenu(false)} key={i}>
-                <Typography textAlign="center">{item.label}</Typography>
-              </Link>
-            </Button>
-          ))}
+          <Box sx={{
+            height: "100vh",
+            background: "#F2F4F8 0% 0% no-repeat padding-box",
+          }}>
+            <Box sx={{display: "flex", pt: 2, pb: 2}}>
+              {cancelMenuButton}
+              <Box sx={{mr: 5}}/>
+              <Logo/>
+            </Box>
+
+            <Box display="flex" padding={10} justifyContent="space-around">
+              <Box display="flex" flexDirection="column">
+                {navItems.map((item, i) => (
+                  <motion.div
+                    key={i}
+                    style={{
+                      opacity: 0.5,
+                      fontWeight: 300,
+                      padding: 10
+                    }}
+                    whileHover={{
+                      scale: 2,
+                      translateX: 100,
+                      color: "#002D7E",
+                      opacity: 1,
+                      fontWeight: 700,
+                      padding: 20
+                    }}>
+                    <Link underline="none" href={item.href} onClick={() => setShowMenu(false)} key={i}>
+                      <Typography textAlign="center" fontSize={30} fontWeight='inherit'>{item.label}</Typography>
+                    </Link>
+                  </motion.div>
+                ))}
+              </Box>
+
+              <Box display="flex" flexDirection="column" padding={1.5}>
+                <Typography fontSize={30}>OPERAZIONI DOGANALI</Typography>
+                <Typography fontSize={30}>MAGAZZINI E LOGISTICA</Typography>
+                <Typography fontSize={30}>CONTROLLI RADIOMETRICI</Typography>
+                <Typography fontSize={30} color="red">ENERGIE RINNOVABILI ???</Typography>
+              </Box>
+
+              <Box display="flex" flexDirection="column" padding={1.5}>
+                <Box>
+                  <Typography fontSize={14}>CHIAMACI</Typography>
+                  <Typography fontWeight={700}>+39 041 25 15 333</Typography>
+                  <Typography fontWeight={700}>+39 041 25 15 353</Typography>
+                </Box>
+
+                <Box marginBottom={5}/>
+                <Box>
+                  <Typography fontSize={14}>EMAIL</Typography>
+                  <Typography fontWeight={700}>commerciale@sdcweb.eu</Typography>
+                </Box>
+
+                <Box marginBottom={5}/>
+
+                <Box>
+                  <Typography fontSize={14}>POLICY / TERM AND CONDITIONS / CAREERS</Typography>
+                </Box>
+              </Box>
+            </Box>
+          </Box>
         </Drawer>
       </Box>
 
@@ -127,8 +200,7 @@ const Header = () => {
         src={require("./../../assets/header-video.mp4")}
         style={{width: "100%", maxHeight: 500, objectFit: "cover"}}
       />
-
-      <Typography fontWeight={700} sx={(theme) => ({
+      <SDC style={{
         width: "100vw",
         maxWidth: "100%",
         display: "flex",
@@ -136,18 +208,6 @@ const Header = () => {
         justifyContent: "center",
         p: 0,
         m: 0,
-        [theme.breakpoints.up('lg')]: {
-          fontSize: "calc(35rem)",
-        },
-        [theme.breakpoints.down('lg')]: {
-          fontSize: "15rem"
-        },
-        [theme.breakpoints.down('md')]: {
-          fontSize: "15rem",
-        },
-        [theme.breakpoints.down('sm')]: {
-          fontSize: "10rem"
-        },
         position: "absolute",
         top: 0,
         height: "100%",
@@ -155,9 +215,7 @@ const Header = () => {
         color: "#000",
         mixBlendMode: "lighten",
         userSelect: "none",
-      })}>
-        SDC
-      </Typography>
+      }}/>
     </Box>
 
     <Box sx={{ml: 18, pt: 10, pb: 15}}>
