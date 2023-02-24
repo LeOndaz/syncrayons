@@ -4,8 +4,8 @@ import {Box, Typography} from "@mui/material";
 const WhatClientsSaySection = () => {
   return <Box sx={{
     width: "100%",
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
+    borderTopRightRadius: 50,
+    borderTopLeftRadius: 50,
     position: "relative",
     backgroundColor: "primary.main",
     display: "flex",

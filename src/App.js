@@ -15,7 +15,7 @@ import Footer from "./components/Footer";
 
 function App() {
   return <ThemeProvider theme={theme}>
-    <Box sx={{ backgroundColor: "white", fontSize: 16}}>
+    <Box sx={{ backgroundColor: "#F3F4F8", fontSize: 16}}>
       <Header/>
       <ValueToRelations/>
       <ServicesSection/>

@@ -3,7 +3,7 @@ import {Box, Grid, Typography} from "@mui/material";
 
 
 const Footer = () => {
-  return <footer style={{backgroundColor: "white", padding: 20, display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
+  return <footer style={{backgroundColor: "#F3F4F8", padding: 20, display: "flex", flexDirection: "column", justifyContent: "space-between"}}>
     <Grid container sx={{p: 10}}>
       <Grid item xs={12} md={6} lg={3}>
         <Logo/>
