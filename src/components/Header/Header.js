@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import Logo from "./Logo";
 import NavButton from "./NavButton";
-import {m} from "framer-motion";
 
 
 const Header = () => {
@@ -120,37 +119,39 @@ const Header = () => {
       </Box>
     </Toolbar>
 
-    <Box sx={{position: "relative", width: "100vw"}}>
+    <Box sx={{position: "relative"}}>
       <video
         autoPlay
         loop
         muted
         controls={false}
         src={require("./../../assets/header-video.mp4")}
-        style={{width: "100vw", maxHeight: 600, objectFit: "cover"}}
+        style={{width: "100%", maxHeight: 500, objectFit: "cover"}}
       />
 
       <Typography fontWeight={700} sx={(theme) => ({
         width: "100vw",
+        maxWidth: "100%",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        p: 0,
+        m: 0,
         [theme.breakpoints.up('lg')]: {
-          fontSize: "calc(35rem)",
-        },
+        fontSize: "calc(35rem)",
+      },
         [theme.breakpoints.down('lg')]: {
-          fontSize: "15rem"
-        },
+        fontSize: "15rem"
+      },
         [theme.breakpoints.down('md')]: {
-          fontSize: "15rem",
-        },
+        fontSize: "15rem",
+      },
         [theme.breakpoints.down('sm')]: {
-          fontSize: "10rem"
-        },
+        fontSize: "10rem"
+      },
         position: "absolute",
         top: 0,
         height: "100%",
-        lineHeight: 0.7,
         backgroundColor: "#fff",
         color: "#000",
         mixBlendMode: "lighten",
@@ -159,10 +160,6 @@ const Header = () => {
         SDC
       </Typography>
     </Box>
-
-    {/*<video autoPlay loop controls={false} src={require("./../../assets/header-video.mp4")} style={{*/}
-    {/*  width: "100vw",*/}
-    {/*}}/>*/}
 
     <Box sx={{ml: 18, pt: 10, pb: 15}}>
       <Typography fontSize={"4rem"} fontWeight={400} sx={(theme) => ({

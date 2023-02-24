@@ -11,10 +11,11 @@ const MapSection = () => {
   }
 
   return <Box sx={{
-    backgroundColor: "gray",
+    backgroundColor: "#F3F4F8",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "0% 0%",
     backgroundClip: "padding-box",
+    paddingBottom: "100px"
   }}>
     <Grid container sx={{m: 0}}>
       <Grid item xs={12} md={6}>
