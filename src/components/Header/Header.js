@@ -41,11 +41,14 @@ const Header = () => {
 
   const [showMenu, setShowMenu] = useState(false);
   const anchor = useRef(null);
-  const ref = useRef(null);
+  const containerRef = useRef(null);
   const [scrollPos, setScrollPos] = useState(0);
-  const mask = `repeating-linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,0) ${scrollPos * 50  * 100}px, rgba(0,0,0,1) ${scrollPos * 50 * 100}px, rgba(0,0,0,1) 100px)`;
+  const mask = `repeating-linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,0) ${scrollPos * 500}px, rgba(0,0,0,1) ${scrollPos * 500}px, rgba(0,0,0,1) 100px)`;
 
-  const {scrollYProgress} = useScroll();
+  const {scrollYProgress} = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
 
   useEffect(() => {
     scrollYProgress.onChange(v => setScrollPos(v))
@@ -82,7 +85,9 @@ const Header = () => {
     position="static"
     sx={{
       p: 0, background: "white", minHeight: 600,
-    }}>
+    }}
+    ref={containerRef}
+  >
     <Toolbar sx={(theme) => ({
       [theme.breakpoints.up('sm')]: {
         pl: 0, pr: 0, pt: 2, pb: 2,
@@ -199,7 +204,7 @@ const Header = () => {
       </Box>
     </Toolbar>
 
-    <Box sx={{position: "relative"}} ref={ref}>
+    <Box sx={{position: "relative"}}>
       <video
         autoPlay
         loop
