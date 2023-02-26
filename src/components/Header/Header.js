@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   AppBar,
   Box,
@@ -11,8 +11,12 @@ import {
 import Logo from "./Logo";
 import NavIcon from "./NavIcon";
 import CloseIcon from '@mui/icons-material/Close';
+import {motion, useScroll} from 'framer-motion';
 import SDC from "../SDC";
-import {motion} from 'framer-motion';
+
+
+const hiddenMask = `repeating-linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 100px, rgba(0,0,0,1) 100px, rgba(0,0,0,1) 100px)`;
+const visibleMask = `repeating-linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 0px, rgba(0,0,0,1) 0px, rgba(0,0,0,1) 100px)`;
 
 const Header = () => {
   const navItems = [
@@ -40,6 +44,15 @@ const Header = () => {
 
   const [showMenu, setShowMenu] = useState(false);
   const anchor = useRef(null);
+  const ref = useRef(null);
+  const [scrollPos, setScrollPos] = useState(0);
+  const mask = `repeating-linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,0) ${scrollPos * 50  * 100}px, rgba(0,0,0,1) ${scrollPos * 50 * 100}px, rgba(0,0,0,1) 100px)`;
+
+  const {scrollYProgress} = useScroll();
+
+  useEffect(() => {
+    scrollYProgress.onChange(v => setScrollPos(v))
+  }, [scrollYProgress])
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -117,7 +130,6 @@ const Header = () => {
                       color: "#002D7E",
                       opacity: 1,
                       fontWeight: 700,
-                      padding: 20
                     }}>
                     <Link underline="none" href={item.href} onClick={() => setShowMenu(false)} key={i}>
                       <Typography textAlign="center" fontSize={30} fontWeight='inherit'>{item.label}</Typography>
@@ -190,31 +202,51 @@ const Header = () => {
       </Box>
     </Toolbar>
 
-    <Box sx={{position: "relative"}}>
+    <Box sx={{position: "relative"}} ref={ref}>
       <video
         autoPlay
         loop
         muted
         controls={false}
         src={require("./../../assets/header-video.mp4")}
-        style={{width: "100%", maxHeight: 500, objectFit: "cover"}}
+        style={{
+          width: "100%",
+          maxHeight: 500,
+          objectFit: "cover",
+        }}
       />
-      <SDC style={{
-        width: "100vw",
-        maxWidth: "100%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        p: 0,
-        m: 0,
-        position: "absolute",
-        top: 0,
-        height: "100%",
-        backgroundColor: "#fff",
-        color: "#000",
-        mixBlendMode: "lighten",
-        userSelect: "none",
-      }}/>
+
+      <motion.div
+        transition={{
+          duration: 1,
+          delay: 0
+        }}
+        animate={{
+
+          maskImage: mask,
+          WebkitMaskImage: mask,
+        }}
+        style={{
+          maskImage: mask,
+          WebkitMaskImage: mask,
+          width: "100vw",
+          maxWidth: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          p: 0,
+          m: 0,
+          position: "absolute",
+          top: 0,
+          height: "100%",
+          backgroundColor: "#fff",
+          color: "#000",
+          userSelect: "none",
+          mixBlendMode: "lighten",
+        }}
+      >
+        <SDC/>
+      </motion.div>
     </Box>
 
     <Box sx={{ml: 18, pt: 10, pb: 15}}>
