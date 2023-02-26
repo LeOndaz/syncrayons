@@ -15,9 +15,6 @@ import {motion, useScroll} from 'framer-motion';
 import SDC from "../SDC";
 
 
-const hiddenMask = `repeating-linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 100px, rgba(0,0,0,1) 100px, rgba(0,0,0,1) 100px)`;
-const visibleMask = `repeating-linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,0) 0px, rgba(0,0,0,1) 0px, rgba(0,0,0,1) 100px)`;
-
 const Header = () => {
   const navItems = [
     {
