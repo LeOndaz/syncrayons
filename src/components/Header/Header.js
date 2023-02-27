@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   AppBar,
   Box,
@@ -11,7 +11,7 @@ import {
 import Logo from "./Logo";
 import NavIcon from "./NavIcon";
 import CloseIcon from '@mui/icons-material/Close';
-import {motion, useScroll} from 'framer-motion';
+import {motion, useScroll, useTransform} from 'framer-motion';
 import SDC from "../SDC";
 
 
@@ -41,18 +41,9 @@ const Header = () => {
 
   const [showMenu, setShowMenu] = useState(false);
   const anchor = useRef(null);
-  const containerRef = useRef(null);
-  const [scrollPos, setScrollPos] = useState(0);
-  const mask = `repeating-linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,0) ${scrollPos * 500}px, rgba(0,0,0,1) ${scrollPos * 500}px, rgba(0,0,0,1) 100px)`;
 
-  const {scrollYProgress} = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"]
-  });
-
-  useEffect(() => {
-    scrollYProgress.onChange(v => setScrollPos(v))
-  }, [scrollYProgress])
+  const {scrollYProgress} = useScroll();
+  const maskImage = useTransform(scrollYProgress, latest => `repeating-linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,0) ${latest * 100}%, rgba(0,0,0,1) ${latest * 100}%, rgba(0,0,0,1) 100px)`)
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -86,7 +77,6 @@ const Header = () => {
     sx={{
       p: 0, background: "white", minHeight: 600,
     }}
-    ref={containerRef}
   >
     <Toolbar sx={(theme) => ({
       [theme.breakpoints.up('sm')]: {
@@ -223,14 +213,9 @@ const Header = () => {
           duration: 1,
           delay: 0
         }}
-        animate={{
-
-          maskImage: mask,
-          WebkitMaskImage: mask,
-        }}
         style={{
-          maskImage: mask,
-          WebkitMaskImage: mask,
+          maskImage,
+          WebkitMaskImage: maskImage,
           width: "100vw",
           maxWidth: "100%",
           display: "flex",
