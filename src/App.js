@@ -11,23 +11,40 @@ import WhatClientsSaySection from "./components/WhatClientsSaySection";
 import Brands from "./components/BrandsSection";
 import ContactUsSection from "./components/ContactUsSection";
 import Footer from "./components/Footer";
+import AnimateUp from "./components/AnimateUp";
 
 
 function App() {
   return <ThemeProvider theme={theme}>
-    <Box sx={{ backgroundColor: "#F3F4F8", fontSize: 16}}>
+    <Box sx={{backgroundColor: "#F3F4F8", fontSize: 16, scrollBehavior: 'smooth'}}>
       <Header/>
-      <ValueToRelations/>
+
+      <AnimateUp>
+        <ValueToRelations/>
+      </AnimateUp>
+
       <ServicesSection/>
-      <ExploreSection/>
-      <MapSection />
-      <WhatClientsSaySection />
-      <Brands />
 
-      <Divider sx={{ borderColor: "white", pl: 18, pr: 18}} />
-      <ContactUsSection />
+      <AnimateUp>
+        <ExploreSection/>
+      </AnimateUp>
 
-      <Footer />
+      <AnimateUp>
+        <MapSection/>
+      </AnimateUp>
+
+      <AnimateUp>
+        <WhatClientsSaySection/>
+      </AnimateUp>
+
+      <AnimateUp>
+        <Brands/>
+      </AnimateUp>
+
+      <Divider sx={{borderColor: "white", pl: 18, pr: 18}}/>
+      <ContactUsSection/>
+
+      <Footer/>
     </Box>
   </ThemeProvider>
 }

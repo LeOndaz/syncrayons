@@ -19,23 +19,39 @@ const Header = () => {
   const navItems = [
     {
       label: "Chi Samo",
-      href: "/"
+      href: "/",
+      sublinks: []
     },
     {
       label: "Servizi",
-      href: "/"
+      href: "/",
+      sublinks: [
+        {
+          label: "OPERAZIONI DOGANALI",
+          href: "/",
+        },
+        {
+          label: "MAGAZZINI E LOGISTICA"
+        },
+        {
+          label: "CONTROLLI RADIOMETRICI"
+        },
+      ]
     },
     {
       label: "Partnership",
-      href: "/"
+      href: "/",
+      sublinks: []
     },
     {
       label: "Contati",
-      href: "/"
+      href: "/",
+      sublinks: []
     },
     {
       label: "Blog",
-      href: "/"
+      href: "/",
+      sublinks: []
     }
   ]
 
@@ -131,10 +147,21 @@ const Header = () => {
               </Box>
 
               <Box display="flex" flexDirection="column" padding={1.5}>
-                <Typography fontSize={30}>OPERAZIONI DOGANALI</Typography>
-                <Typography fontSize={30}>MAGAZZINI E LOGISTICA</Typography>
-                <Typography fontSize={30}>CONTROLLI RADIOMETRICI</Typography>
-                <Typography fontSize={30} color="red">ENERGIE RINNOVABILI ???</Typography>
+                <Link>
+                  <Typography fontSize={30}>OPERAZIONI DOGANALI</Typography>
+                </Link>
+
+                <Link>
+                  <Typography fontSize={30}>MAGAZZINI E LOGISTICA</Typography>
+                </Link>
+
+                <Link>
+                  <Typography fontSize={30}>CONTROLLI RADIOMETRICI</Typography>
+                </Link>
+
+                <Link>
+                  <Typography fontSize={30} color="red">ENERGIE RINNOVABILI ???</Typography>
+                </Link>
               </Box>
 
               <Box display="flex" flexDirection="column" padding={1.5}>

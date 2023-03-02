@@ -1,7 +1,7 @@
 import {Box, Card, CardContent, Divider, Typography} from "@mui/material";
 import Slider from "react-slick";
-import {useEffect, useRef} from "react";
-// import { motion, useScroll } from "framer-motion"
+import {useCallback, useEffect, useRef} from "react";
+import {motion, useInView, useMotionValueEvent, useScroll, useTransform} from "framer-motion"
 
 
 const ServicesSection = () => {
@@ -26,30 +26,34 @@ const ServicesSection = () => {
   }
 
   const sliderRef = useRef(null);
-  const sectionRef = useRef(null);
-  // const { scrollYProgress } = useScroll();
+
+  const {scrollYProgress} = useScroll();
+  const lastCardRef = useRef(null);
+
+  const sliderInView = useInView(sliderRef);
+  const lastCardInView = useInView(lastCardRef);
+
+  const evtListener = useCallback((e) => {
+    e.preventDefault();
+  }, [])
 
   useEffect(() => {
-    const element = sectionRef.current;
-
-    if (element && sliderRef) {
-      const onWheel = (e) => {
-
-        if (e.deltaY > 0) {
-          sliderRef.current.slickNext();
-        } else {
-          sliderRef.current.slickPrev();
-        }
-      }
-      sectionRef.current.addEventListener('wheel', onWheel);
+    sliderRef.current.scrollTo(0, 0)
+    if (sliderInView) {
+      document.addEventListener('wheel', (evt) => {
+        const y = evt.deltaY;
+        sliderRef.current.scrollBy(y, 0);
+      })
 
       return () => {
-        element.removeEventListener('wheel', onWheel);
+        document.removeEventListener('wheel', evtListener)
       }
+    } else {
+      document.removeEventListener('wheel', evtListener)
     }
-  }, [sliderRef, sectionRef])
+  }, [sliderInView])
 
-  return <Box ref={sectionRef} sx={{
+  return <Box sx={{
     position: "relative",
     background: "#F2F4F8 0% 0% no-repeat padding-box;",
     borderTopLeftRadius: 70,
@@ -58,6 +62,8 @@ const ServicesSection = () => {
     pr: 18,
     pt: 10,
     pb: 10,
+    height: "100vh",
+    maxHeight: "100%",
   }}>
     <Typography variant="h4">
       Da 50 anni, lorem ipsum i servizi
@@ -65,18 +71,22 @@ const ServicesSection = () => {
 
     <Divider sx={{marginTop: 5, marginBottom: 5}}/>
 
-    <Box>
-      <Slider {...sliderSettings} ref={sliderRef}>
-        {cards.map(({image, title}, i) => (
-          <Card key={i} sx={{mr: 1, background: "transparent"}}>
+    <Box ref={sliderRef} component='ul' sx={{
+      display: "flex",
+      listStyle: "none",
+      overflowX: "hidden",
+    }}>
+      {cards.map(({image, title}, i) => (
+        <motion.div ref={i === cards.length - 1 ? lastCardRef : null}>
+          <Card key={i} sx={{mr: 1, background: "transparent", minWidth: 300}} component='li'>
             <Typography fontWeight={300} fontSize={14} height={30}>{title}</Typography>
 
             <CardContent sx={{p: 0, mt: 2}}>
               <img src={image} alt={title} style={{maxWidth: 295}}/>
             </CardContent>
           </Card>
-        ))}
-      </Slider>
+        </motion.div>
+      ))}
     </Box>
   </Box>
 }
