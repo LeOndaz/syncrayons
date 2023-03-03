@@ -1,7 +1,6 @@
 import {Box, Card, CardContent, Divider, Typography} from "@mui/material";
-import Slider from "react-slick";
-import {useCallback, useEffect, useRef} from "react";
-import {motion, useInView, useMotionValueEvent, useScroll, useSpring, useTransform} from "framer-motion"
+import {useRef} from "react";
+import {motion, useScroll, useSpring, useTransform} from "framer-motion"
 
 
 const ServicesSection = () => {
@@ -14,16 +13,6 @@ const ServicesSection = () => {
     {title: "Porto commerciale - Operazioni doganali", image: require("./../assets/port.png"),},
     {title: "Aeroporto - Operazioni doganali", image: require("./../assets/airport.png"),},
   ]
-
-  const sliderSettings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4.5,
-    slidesToScroll: 1,
-    arrows: false,
-    draggable: true,
-  }
 
   const sliderRef = useRef(null);
   const sectionRef = useRef(null);

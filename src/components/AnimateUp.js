@@ -1,4 +1,4 @@
-import {useScroll, useTransform, motion, useSpring, useMotionValueEvent} from "framer-motion";
+import {useScroll, useTransform, motion} from "framer-motion";
 import {useRef} from "react";
 
 const AnimateUp = ({children}) => {
