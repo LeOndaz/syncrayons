@@ -16,13 +16,6 @@ const ServicesSection = () => {
 
   const sliderRef = useRef(null);
   const sectionRef = useRef(null);
-  // const lastCardRef = useRef(null);
-  // const firstCardRef = useRef(null);
-  //
-  // const sectionRef = useRef(null);
-  // const sliderInView = useInView(sliderRef, {amount: "all"});
-  // const lastCardInView = useInView(lastCardRef, {amount: "all"});
-  // const firstCardInView = useInView(firstCardRef, {amount: "all"})
 
   const {scrollYProgress} = useScroll({
     target: sectionRef,
@@ -35,38 +28,6 @@ const ServicesSection = () => {
     bounce: 0,
   });
   const x = useTransform(springScroll, [0, 1], ["0%", "-110%"])
-
-  // const evtListener = useCallback((evt) => {
-  //   const sliderRect = sliderRef.current.getBoundingClientRect();
-  //   const sliderInPosition = sliderRect.top <= 220;
-  //   const isScrollingDown = evt.deltaY > 0;
-  //   const isScrollingUp = evt.deltaY < 0;
-  //
-  //   sliderRef.current.scrollBy(evt.deltaY, 0);
-  //
-  //   if (sliderInPosition && (!lastCardInView || firstCardInView) && isScrollingDown) { // 180 is a number got by testing
-  //     evt.preventDefault();
-  //   }
-  //
-  //   if (sliderInPosition && lastCardInView && isScrollingDown) {
-  //     // ok we can
-  //   }
-  //
-  //   if (sliderInPosition && !firstCardInView && isScrollingUp) {
-  //     evt.preventDefault();
-  //   }
-  //
-  // }, [sliderRef, lastCardInView, firstCardInView])
-  //
-  // useEffect(() => {
-  //   if (sliderInView) {
-  //     document.addEventListener('wheel', evtListener, {passive: false})
-  //
-  //     return () => {
-  //       document.removeEventListener('wheel', evtListener)
-  //     }
-  //   }
-  // }, [evtListener, sliderInView])
 
   return <Box sx={{
     position: "relative",
