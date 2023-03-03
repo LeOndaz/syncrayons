@@ -4,6 +4,8 @@ import {Box, Divider, ThemeProvider} from "@mui/material";
 import ValueToRelations from "./components/ValueToRelations";
 import ServicesSection from "./components/ServicesSection";
 import ExploreSection from "./components/ExploreSection";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import MapSection from "./components/MapSection";
 import WhatClientsSaySection from "./components/WhatClientsSaySection";
 import Brands from "./components/BrandsSection";
