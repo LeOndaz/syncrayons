@@ -1,7 +1,7 @@
 import {Box, Card, CardContent, Divider, Typography} from "@mui/material";
 import Slider from "react-slick";
 import {useCallback, useEffect, useRef} from "react";
-import {motion, useInView, useMotionValueEvent, useScroll, useTransform} from "framer-motion"
+import {motion, useInView, useMotionValueEvent, useScroll, useSpring, useTransform} from "framer-motion"
 
 
 const ServicesSection = () => {
@@ -26,32 +26,58 @@ const ServicesSection = () => {
   }
 
   const sliderRef = useRef(null);
+  const sectionRef = useRef(null);
+  // const lastCardRef = useRef(null);
+  // const firstCardRef = useRef(null);
+  //
+  // const sectionRef = useRef(null);
+  // const sliderInView = useInView(sliderRef, {amount: "all"});
+  // const lastCardInView = useInView(lastCardRef, {amount: "all"});
+  // const firstCardInView = useInView(firstCardRef, {amount: "all"})
 
-  const {scrollYProgress} = useScroll();
-  const lastCardRef = useRef(null);
+  const {scrollYProgress} = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end end']
+  });
 
-  const sliderInView = useInView(sliderRef);
-  const lastCardInView = useInView(lastCardRef);
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1]);
+  const springScroll = useSpring(scrollYProgress, {
+    velocity: 1,
+    bounce: 0,
+  });
+  const x = useTransform(springScroll, [0, 1], ["0%", "-110%"])
 
-  const evtListener = useCallback((e) => {
-    e.preventDefault();
-  }, [])
-
-  useEffect(() => {
-    sliderRef.current.scrollTo(0, 0)
-    if (sliderInView) {
-      document.addEventListener('wheel', (evt) => {
-        const y = evt.deltaY;
-        sliderRef.current.scrollBy(y, 0);
-      })
-
-      return () => {
-        document.removeEventListener('wheel', evtListener)
-      }
-    } else {
-      document.removeEventListener('wheel', evtListener)
-    }
-  }, [sliderInView])
+  // const evtListener = useCallback((evt) => {
+  //   const sliderRect = sliderRef.current.getBoundingClientRect();
+  //   const sliderInPosition = sliderRect.top <= 220;
+  //   const isScrollingDown = evt.deltaY > 0;
+  //   const isScrollingUp = evt.deltaY < 0;
+  //
+  //   sliderRef.current.scrollBy(evt.deltaY, 0);
+  //
+  //   if (sliderInPosition && (!lastCardInView || firstCardInView) && isScrollingDown) { // 180 is a number got by testing
+  //     evt.preventDefault();
+  //   }
+  //
+  //   if (sliderInPosition && lastCardInView && isScrollingDown) {
+  //     // ok we can
+  //   }
+  //
+  //   if (sliderInPosition && !firstCardInView && isScrollingUp) {
+  //     evt.preventDefault();
+  //   }
+  //
+  // }, [sliderRef, lastCardInView, firstCardInView])
+  //
+  // useEffect(() => {
+  //   if (sliderInView) {
+  //     document.addEventListener('wheel', evtListener, {passive: false})
+  //
+  //     return () => {
+  //       document.removeEventListener('wheel', evtListener)
+  //     }
+  //   }
+  // }, [evtListener, sliderInView])
 
   return <Box sx={{
     position: "relative",
@@ -60,33 +86,38 @@ const ServicesSection = () => {
     borderTopRightRadius: 70,
     pl: 18,
     pr: 18,
-    pt: 10,
+    pt: 5,
     pb: 10,
     height: "100vh",
     maxHeight: "100%",
-  }}>
-    <Typography variant="h4">
-      Da 50 anni, lorem ipsum i servizi
-    </Typography>
+  }} component='section' ref={sectionRef}>
 
-    <Divider sx={{marginTop: 5, marginBottom: 5}}/>
+    <Box sx={{position: "sticky", top: 0, left: 0, overflowX: "hidden"}}>
+      <Typography variant="h4" sx={{pt: 5}}>
+        Da 50 anni, lorem ipsum i servizi
+      </Typography>
 
-    <Box ref={sliderRef} component='ul' sx={{
-      display: "flex",
-      listStyle: "none",
-      overflowX: "hidden",
-    }}>
-      {cards.map(({image, title}, i) => (
-        <motion.div ref={i === cards.length - 1 ? lastCardRef : null}>
-          <Card key={i} sx={{mr: 1, background: "transparent", minWidth: 300}} component='li'>
-            <Typography fontWeight={300} fontSize={14} height={30}>{title}</Typography>
+      <Divider sx={{marginTop: 5, marginBottom: 5}}/>
 
-            <CardContent sx={{p: 0, mt: 2}}>
-              <img src={image} alt={title} style={{maxWidth: 295}}/>
-            </CardContent>
-          </Card>
-        </motion.div>
-      ))}
+      <motion.div style={{scale, x}}>
+        <Box ref={sliderRef} component='ul' sx={{
+          display: "flex",
+          listStyle: "none",
+        }}>
+          {cards.map(({image, title}, i) => (
+            // ref={i === (cards.length - 1) ? lastCardRef : i === 0 ? firstCardRef : null}
+            <motion.li key={i}>
+              <Card sx={{mr: 1, background: "transparent", minWidth: 300}}>
+                <Typography fontWeight={300} fontSize={14} height={30}>{title}</Typography>
+
+                <CardContent sx={{p: 0, mt: 2}}>
+                  <img src={image} alt={title} style={{maxWidth: 295}}/>
+                </CardContent>
+              </Card>
+            </motion.li>
+          ))}
+        </Box>
+      </motion.div>
     </Box>
   </Box>
 }
