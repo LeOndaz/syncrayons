@@ -1,4 +1,4 @@
-import {useScroll, useTransform, motion} from "framer-motion";
+import {useScroll, useTransform, motion, useSpring} from "framer-motion";
 import {useRef} from "react";
 
 const AnimateUp = ({children}) => {
@@ -8,8 +8,11 @@ const AnimateUp = ({children}) => {
     offset: ["0 1", "0.5 1"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [100, 0]);
-  const z = useTransform(scrollYProgress, [0, 1], [30, 0]);
+  const spring = useSpring(scrollYProgress, {
+    bounce: 0
+  });
+  const y = useTransform(spring, [0, 1], ["200px", "0px"]);
+  const z = useTransform(spring, [0, 1], [30, 0]);
   const scaleY = useTransform(scrollYProgress, [0, 1], [1.3, 1]);
 
   const blurValue = useTransform(scrollYProgress, [0, 1], [5, 0]);
