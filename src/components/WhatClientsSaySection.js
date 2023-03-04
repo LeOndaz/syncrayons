@@ -12,7 +12,7 @@ const WhatClientsSaySection = () => {
     flexDirection: "column",
     pt: 10,
     pb: 10,
-  }}>
+  }} component='section'>
     <Typography fontSize={"2rem"} color={"#DBDCDD"} sx={{display: "flex", justifyContent: "flex-end", p: 2}}>
       “Radici veneziane, aperti al mondo.
     </Typography>

@@ -36,7 +36,7 @@ const ExploreSection = () => {
     flexDirection: "column",
     alignItems: "center",
     background: `#DBDCDD linear-gradient(180deg, #F2F4F8 0%, #DBDCDD00 100%) 0% 0% no-repeat padding-box;`,
-  }}>
+  }} component='section'>
     <Typography fontWeight={500} variant='h4' sx={{
       maxWidth: 600,
       textAlign: "center",

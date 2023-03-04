@@ -10,7 +10,7 @@ const ValueToRelations = () => {
     padding: 10,
     paddingLeft: 18,
     position: "relative"
-  })}>
+  })} component='section'>
     <img src={require("./../assets/value-to-relations-bg.png")} style={{
       position: "absolute",
       top: -50,

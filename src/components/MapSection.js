@@ -15,7 +15,7 @@ const MapSection = () => {
     backgroundRepeat: "no-repeat",
     backgroundPosition: "0% 0%",
     backgroundClip: "padding-box",
-  }}>
+  }} component='section'>
     <Grid container sx={{m: 0}}>
       <Grid item xs={12} md={6}>
         <Box sx={{

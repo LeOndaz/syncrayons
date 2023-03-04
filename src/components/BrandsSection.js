@@ -22,7 +22,7 @@ const Brands = () => {
     alignItems: "center",
     textAlign: "center",
     backgroundColor: theme.palette.primary.main
-  })}>
+  })} component='section'>
     <Box sx={{mb: 10}}>
       <Typography variant="h3" color={"white"}>Abbiamo collaborato con</Typography>
       <Typography variant="h3" color="secondary">Grandi società. Start-ups. Chiunque cercasse un partner veloce ed

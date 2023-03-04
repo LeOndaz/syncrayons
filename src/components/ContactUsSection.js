@@ -11,7 +11,7 @@ const ContactUsSection = () => {
     position: "relative",
     border: 1,
     backgroundColor: theme.palette.primary.main,
-  })}>
+  })} component='section'>
     <Typography variant={"h3"} color={"secondary"} sx={{mb: 5}}>
       Ufficio commerciale
     </Typography>
