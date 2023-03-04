@@ -11,7 +11,7 @@ import {
 import Logo from "./Logo";
 import NavIcon from "./NavIcon";
 import CloseIcon from '@mui/icons-material/Close';
-import {motion, useScroll, useTransform} from 'framer-motion';
+import {motion, useScroll, useSpring, useTransform} from 'framer-motion';
 import SDC from "../SDC";
 
 
@@ -59,7 +59,11 @@ const Header = () => {
   const anchor = useRef(null);
 
   const {scrollYProgress} = useScroll();
-  const maskImage = useTransform(scrollYProgress, latest => `repeating-linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,0) ${latest * 100}%, rgba(0,0,0,1) ${latest * 100}%, rgba(0,0,0,1) 100px)`)
+  const spring = useSpring(scrollYProgress, {
+    bounce: 0
+  });
+
+  const maskImage = useTransform(spring, latest => `repeating-linear-gradient(to right, rgba(0,0,0,0) 0px, rgba(0,0,0,0) ${latest * 100}%, rgba(0,0,0,1) ${latest * 100}%, rgba(0,0,0,1) 100px)`)
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
