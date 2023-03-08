@@ -1,7 +1,8 @@
 import {Box, Card, CardContent, Divider, Typography} from "@mui/material";
-import {useRef} from "react";
-import {motion, useScroll, useSpring, useTransform} from "framer-motion"
+import {useCallback, useEffect, useRef} from "react";
+import {register} from 'swiper/element/bundle';
 
+register();
 
 const ServicesSection = () => {
   const cards = [
@@ -14,20 +15,32 @@ const ServicesSection = () => {
     {title: "Aeroporto - Operazioni doganali", image: require("./../assets/airport.png"),},
   ]
 
-  const sliderRef = useRef(null);
   const sectionRef = useRef(null);
+  const swiperRef = useRef(null);
 
-  const {scrollYProgress} = useScroll({
-    target: sectionRef,
-    offset: ['start start', 'end end']
-  });
+  const evtListener = useCallback((evt) => {
+    const swiper = swiperRef.current.swiper;
+    const parent = swiperRef.current.parentNode.parentNode;
 
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1]);
-  const springScroll = useSpring(scrollYProgress, {
-    velocity: 1,
-    bounce: 0,
-  });
-  const x = useTransform(springScroll, [0, 1], ["0%", "-110%"])
+    if (parent.clientTop === 0) {
+      if (evt.deltaY > 0 && swiper.activeIndex <= (cards.length - 1)) {
+        swiper.slideNext();
+      } else if (evt.deltaY < 0){
+        swiper.slidePrev();
+      }
+    }
+  }, [cards.length, swiperRef]);
+
+  useEffect(() => {
+    if (swiperRef) {
+      document.addEventListener('wheel', evtListener)
+
+      return () => {
+        document.removeEventListener('wheel', evtListener);
+      }
+    }
+
+  }, [swiperRef, evtListener])
 
   return <Box sx={{
     position: "relative",
@@ -49,25 +62,27 @@ const ServicesSection = () => {
 
       <Divider sx={{marginTop: 5, marginBottom: 5}}/>
 
-      <motion.div style={{scale, x}}>
-        <Box ref={sliderRef} component='ul' sx={{
-          display: "flex",
-          listStyle: "none",
-        }}>
-          {cards.map(({image, title}, i) => (
-            // ref={i === (cards.length - 1) ? lastCardRef : i === 0 ? firstCardRef : null}
-            <motion.li key={i}>
-              <Card sx={{mr: 1, background: "transparent", minWidth: 300}}>
-                <Typography fontWeight={300} fontSize={14} height={30}>{title}</Typography>
+      <swiper-container
+        slides-per-view="3"
+        navigation="false"
+        scrollbar="false"
+        pagination="false"
+        loop="false"
+        speed={"500"}
+        style={{width: "100%"}}
+        ref={swiperRef}
+      >
+        {cards.map(({image, title}, i) => <swiper-slide key={i}>
+            <Card sx={{mr: 1, background: "transparent", minWidth: 300}}>
+              <Typography fontWeight={300} fontSize={14} height={30}>{title}</Typography>
 
-                <CardContent sx={{p: 0, mt: 2}}>
-                  <img src={image} alt={title} style={{maxWidth: 295}}/>
-                </CardContent>
-              </Card>
-            </motion.li>
-          ))}
-        </Box>
-      </motion.div>
+              <CardContent sx={{p: 0, mt: 2}}>
+                <img src={image} alt={title} style={{maxWidth: 295}}/>
+              </CardContent>
+            </Card>
+          </swiper-slide>
+        )}
+      </swiper-container>
     </Box>
   </Box>
 }
